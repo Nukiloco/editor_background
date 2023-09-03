@@ -159,26 +159,15 @@ func load_config():
 	if json_parse_val != OK:
 		return
 	var json_data: Dictionary = json_new.data
-	print(json_data)
-#	if json_data.has('background_path'):
 	background_path = json_data_get_fix(json_data, 'background_path', background_path)
-#	if json_data.has('background_stretch_mode'):
 	background_stretch_mode = json_data_get_fix(json_data, 'background_stretch_mode', background_stretch_mode)
-#	if json_data.has('background_filter_mode'):
 	background_filter_mode = json_data_get_fix(json_data, 'background_filter_mode', background_filter_mode)
-#	if json_data.has('background_folder'):
 	background_folder = json_data_get_fix(json_data, 'background_folder', background_folder)
-#	if json_data.has('random_enabled'):
 	random_enabled = json_data_get_fix(json_data, 'random_enabled', random_enabled)
-#	if json_data.has('random_time_change_enabled'):
 	random_time_change_enabled = json_data_get_fix(json_data, 'random_time_change_enabled', random_time_change_enabled)
-#	if json_data.has('random_time_change_interval'):
 	random_time_change_interval = json_data_get_fix(json_data, 'random_time_change_interval', random_time_change_interval)
-#	if json_data.has('background_z_index'):
 	background_z_index = json_data_get_fix(json_data, 'background_z_index', background_z_index)
-#	if json_data.has('background_transparency'):
 	background_transparency = json_data_get_fix(json_data, 'background_transparency', background_transparency)
-#	if json_data.has('editor_transparency'):
 	editor_transparency = json_data_get_fix(json_data, 'editor_transparency', editor_transparency)
 
 # prevents any value from actually being null when the json has a null value in it
@@ -207,7 +196,7 @@ func save_config():
 		'background_transparency': background_transparency,
 		'editor_transparency': editor_transparency,
 	}
-	print(config)
+
 	var json_string_val = json_new.stringify(config)
 	file.store_string(json_string_val)
 

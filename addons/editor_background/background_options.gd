@@ -152,7 +152,6 @@ func _ready() -> void:
 	
 	background_stretch_button.item_selected.connect(func(index):
 		var enum_value = background_stretch_button_to_enum(index)
-		print(index)
 		main_plugin_script.background_stretch_mode = enum_value
 	)
 	
