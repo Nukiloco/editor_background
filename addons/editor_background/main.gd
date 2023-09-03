@@ -26,7 +26,6 @@ func _ready() -> void:
 	)
 	background_node.size = viewport.size
 	
-	
 	load_config()
 	update_background()
 	random_time_change_timer.timeout.connect(func():
@@ -110,7 +109,7 @@ var background_folder: String:
 		background_folder_changed.emit(val)
 signal background_folder_changed(val)
 
-var background_stretch_mode: TextureRect.StretchMode = TextureRect.STRETCH_KEEP:
+var background_stretch_mode: TextureRect.StretchMode = TextureRect.STRETCH_SCALE:
 	set(val):
 		background_stretch_mode = val
 		if not is_instance_valid(background_node): return
@@ -159,6 +158,7 @@ func load_config():
 	if json_parse_val != OK:
 		return
 	var json_data: Dictionary = json_new.data
+
 	background_path = json_data_get_fix(json_data, 'background_path', background_path)
 	background_stretch_mode = json_data_get_fix(json_data, 'background_stretch_mode', background_stretch_mode)
 	background_filter_mode = json_data_get_fix(json_data, 'background_filter_mode', background_filter_mode)
@@ -231,7 +231,7 @@ func get_background_files():
 	var dir_access = DirAccess.open(background_folder)
 	if not dir_access: return
 	
-	var dir_files = dir_access.get_files()
+	var dir_files = filter_files_from_extension(dir_access.get_files(), allowed_extensions)
 	
 	var files = []
 	for i in dir_files:
@@ -251,7 +251,7 @@ func filter_files_from_extension(files_arr, ext_arr):
 
 func is_extension(file, ext_arr):
 	for ext in ext_arr:
-			if file.split['.'][1] == ext:
+			if file.split('.')[1] == ext:
 				return true
 	return false
 

@@ -66,7 +66,6 @@ func _ready() -> void:
 			return
 		random_time_change_enabled_check_box.button_pressed = val
 	)
-	
 	random_time_change_enabled_check_box.button_pressed = main_plugin_script.random_time_change_enabled
 	
 	main_plugin_script.random_time_change_interval_changed.connect(func(val):
@@ -84,11 +83,12 @@ func _ready() -> void:
 	background_stretch_button.selected = main_plugin_script.background_stretch_mode
 	
 	main_plugin_script.background_filter_mode_changed.connect(func(val):
+		val = clamp(val-1, 0, INF)
 		if background_filter_button.selected == val:
 			return
 		background_filter_button.selected = background_filter_enum_to_button_index(val)
 	)
-	background_filter_button.selected = main_plugin_script.background_filter_mode
+	background_filter_button.selected = clamp(main_plugin_script.background_filter_mode-1, 0, INF) 
 	
 	background_z_index_spin_box.value_changed.connect(func(val):
 		main_plugin_script.background_z_index = val
